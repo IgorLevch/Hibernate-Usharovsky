@@ -2,6 +2,8 @@ package ru.geekbrains.persist;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="users")
 @NamedQueries({   // это когда хотим сделать короткую запись часто отправляемого запроса
@@ -22,6 +24,11 @@ public class User {
     @Column
     private String email;
 
+    // User связан с контактами отношениями ОнеТуМени
+    @OneToMany(mappedBy = "user",cascade=CascadeType.ALL)  // это имя поля в классе Contact, в котором хранится ссылка (чтобы не образовывалась промежуточная таблица)
+    private List<Contact>  contacts; // в поле будут содержаться все контакты, которые привязаны к данному пользователю
+        // каскадирование - это когда вместе с например удалением пользователя удаляются все его контакты
+        //  обычно либо ALL Type, либо вообще не ставится
     public User() {
     }
 
@@ -34,6 +41,10 @@ public class User {
         this.password = password;
         this.email = email;
     }
+    @ManyToMany
+    private List<Role> roles;
+
+
 
     public Long getId() {
         return id;
@@ -75,11 +86,26 @@ public class User {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", matchingPassword='" + matchingPassword + '\'' +
+            //    ", matchingPassword='" + matchingPassword + '\'' +
                 ", email='" + email + '\'' +
                 '}';
     }
 
 
+    public List<Contact> getContacts() {
+        return contacts;
+    }
 
+    public void setContacts(List<Contact> contacts) {
+        this.contacts = contacts;
+    }
+
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 }
