@@ -21,29 +21,29 @@ public class Main {
 
 // INSERT for OneToMany:
 
-//        em.getTransaction().begin();
-//
-//        User user = new User("user2","password2","user2@gmail.com");
-//        em.persist(user);
-//
-//        List<Contact> contacts = new ArrayList<>();
-//        contacts.add(new Contact("hup","57746",user));
-//        contacts.add(new Contact("p","56",user));
-//        contacts.add(new Contact("htpp","5777",user));
-//        contacts.add(new Contact("ureew","59997",user));
-//
-//        contacts.forEach(em::persist);
-//
-//        em.getTransaction().commit();
+        em.getTransaction().begin();
+
+        User user = new User("user2","password2","user2@gmail.com");
+        em.persist(user);
+
+        List<Contact> contacts = new ArrayList<>();
+        contacts.add(new Contact("hup","57746",user));
+        contacts.add(new Contact("p","56",user));
+        contacts.add(new Contact("htpp","5777",user));
+        contacts.add(new Contact("ureew","59997",user));
+
+        contacts.forEach(em::persist);
+
+        em.getTransaction().commit();
 
         // SELECT for OneToMany:
  // транзакция не нужна при селекте
 
-        User user = em.find(User.class, 1L);
+       /* User user = em.find(User.class, 1L);
 
         user.getContacts().forEach(System.out::println);
 
-        System.out.println("***********");
+        System.out.println("***********");*/
 
 //        List<Contact> contacts = em.createQuery(  // этот запрос не срабатывает
 //                "SELECT c FROM User u " +

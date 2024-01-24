@@ -41,7 +41,7 @@ public class User {
         this.password = password;
         this.email = email;
     }
-    @ManyToMany
+    @ManyToMany(mappedBy = "users") // это нужно для того, чтобы не создавались лишние таблицы
     private List<Role> roles;
 
 
